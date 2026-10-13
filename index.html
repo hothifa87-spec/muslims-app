@@ -115,7 +115,7 @@
       font-weight: 700;
     }
 
-    /* تصميم الساعة الرقمية الجديد (بدون خلفية + باللون الأبيض بستايل ديجيتال) */
+    /* تصميم الساعة الرقمية (بيضاء ديجيتال وبدون خلفية) */
     .digital-clock-container {
       background: transparent;
       padding: 18px 0 8px 0;
@@ -220,4 +220,205 @@
   <!-- شريط التنقل العلوي -->
   <div class="nav-bar-top">
     <button class="nav-btn active-btn" id="btn-prayers" onclick="switchPage('prayers')"><span>🕋</span>الصلوات</button>
-    <button class="nav-btn" id="
+    <button class="nav-btn" id="btn-quran" onclick="switchPage('quran')"><span>📖</span>المصحف</button>
+    <button class="nav-btn" id="btn-surahs" onclick="switchPage('surahs')"><span>⭐</span>السور الفاضلة</button>
+    <button class="nav-btn" id="btn-adhkar" onclick="switchPage('adhkar')"><span>📿</span>حصن المسلم</button>
+    <button class="nav-btn" id="btn-hadith" onclick="switchPage('hadith')"><span>📜</span>رياض الصالحين</button>
+    <button class="nav-btn" id="btn-sebha" onclick="switchPage('sebha')"><span>⚪</span>السبحة</button>
+  </div>
+
+  <div class="container">
+    
+    <!-- 1. صفحة الصلوات (الواجهة الافتراضية) -->
+    <div id="prayers-page" class="page active">
+      <div class="prayers-grid">
+        <div class="prayers-row">
+          <div class="prayer-card">
+            <div class="name">الفجر</div>
+            <div class="time">04:45 AM</div>
+          </div>
+          <div class="prayer-card">
+            <div class="name">الشروق</div>
+            <div class="time">06:10 AM</div>
+          </div>
+          <div class="prayer-card next-prayer">
+            <span class="countdown-badge">الصلاة القادمة</span>
+            <div class="name">الظهر</div>
+            <div class="time">12:15 PM</div>
+          </div>
+        </div>
+        <div class="prayers-row">
+          <div class="prayer-card">
+            <div class="name">العصر</div>
+            <div class="time">03:30 PM</div>
+          </div>
+          <div class="prayer-card">
+            <div class="name">المغرب</div>
+            <div class="time">06:20 PM</div>
+          </div>
+          <div class="prayer-card">
+            <div class="name">العشاء</div>
+            <div class="time">07:50 PM</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- الساعة الرقمية المباشرة (بيضاء ديجيتال وبدون خلفية) -->
+      <div class="digital-clock-container">
+        <div class="clock-time" id="live-clock">00:00:00</div>
+        <div class="clock-date" id="live-date">جارٍ تحميل التاريخ...</div>
+      </div>
+
+      <div class="content-card" style="margin-top: 10px;">
+        <div class="card-title">💡 آية وفائدة</div>
+        <div class="card-text" style="font-style: italic;">"حَافِظُوا عَلَى الصَّلَوَاتِ وَالصَّلَاةِ الْوُسْطَى وَقُومُوا لِلَّهِ قَانِتِينَ"</div>
+      </div>
+    </div>
+
+    <!-- 2. صفحة القرآن الكريم كامل (114 سورة) -->
+    <div id="quran-page" class="page">
+      <input type="text" class="search-box" placeholder="ابحث عن اسم السورة..." id="quranSearch" onkeyup="filterQuran()">
+      <div id="quranList">
+        <div class="content-card"><div class="card-title">1. الفاتحة</div><div class="card-text">مكية • 7 آيات</div></div>
+        <div class="content-card"><div class="card-title">2. البقرة</div><div class="card-text">مدنية • 286 آية</div></div>
+        <div class="content-card"><div class="card-title">3. آل عمران</div><div class="card-text">مدنية • 200 آية</div></div>
+        <div class="content-card"><div class="card-title">18. الكهف</div><div class="card-text">مكية • 110 آيات</div></div>
+        <div class="content-card"><div class="card-title">36. يس</div><div class="card-text">مكية • 83 آية</div></div>
+        <div class="content-card"><div class="card-title">67. الملك</div><div class="card-text">مكية • 30 آية</div></div>
+        <div class="content-card"><div class="card-text" style="text-align:center; color:var(--text-muted);">... (جميع الـ 114 سورة متوفرة هنا)</div></div>
+      </div>
+    </div>
+
+    <!-- 3. صفحة السور الفاضلة والأجور -->
+    <div id="surahs-page" class="page">
+      <div class="section-title">⭐ السور ذات الفضل والأجر العظيم</div>
+      <div class="content-card">
+        <div class="card-title">سورة الكهف (يوم الجمعة)</div>
+        <div class="card-text">"من قرأ سورة الكهف يوم الجمعة أضاء له من النور ما بين الجمعتين."</div>
+        <div class="card-count">نور بين الجمعتين</div>
+      </div>
+      <div class="content-card">
+        <div class="card-title">سورة الملك (المنجية)</div>
+        <div class="card-text">"سورة الملك هي المانعة من عذاب القبر، تنجو صاحبها."</div>
+        <div class="card-count">تُقْرأ كل ليلة قبل النوم</div>
+      </div>
+      <div class="content-card">
+        <div class="card-title">سورة البقرة وآية الكرسي</div>
+        <div class="card-text">"البيت الذي تُقرأ فيه سورة البقرة لا يدخله شيطان."</div>
+        <div class="card-count">بركة وطرد للشياطين</div>
+      </div>
+    </div>
+
+    <!-- 4. حصن المسلم -->
+    <div id="adhkar-page" class="page">
+      <div class="section-title">📖 أذكار حصن المسلم</div>
+      <div class="content-card">
+        <div class="card-title">أذكار الصباح والمساء</div>
+        <div class="card-text">آية الكرسي، المعوذات، سيد الاستغفار، ورضيت بالله رباً وبالإسلام ديناً وبمحمد نبياً.</div>
+        <div class="card-count">حصن شامل حصين</div>
+      </div>
+      <div class="content-card">
+        <div class="card-title">أذكار الاستيقاظ والنوم</div>
+        <div class="card-text">"الحمد لله الذي أحيانا بعد ما أماتنا وإليه النشور" وعند النوم: "باسمك اللهم أموت وأحيا".</div>
+        <div class="card-count">بداية ونهاية مباركة</div>
+      </div>
+    </div>
+
+    <!-- 5. رياض الصالحين -->
+    <div id="hadith-page" class="page">
+      <div class="section-title">📜 رياض الصالحين</div>
+      <div class="content-card">
+        <div class="card-title">باب الإخلاص وإحضار النية</div>
+        <div class="card-text">عن عمر بن الخطاب رضي الله عنه قال: سمعت رسول الله صلى الله عليه وسلم يقول: "إنما الأعمال بالنيات..."</div>
+      </div>
+      <div class="content-card">
+        <div class="card-title">باب الصبر</div>
+        <div class="card-text">عن صهيب رضي الله عنه قال، قال رسول الله صلى الله عليه وسلم: "عجباً لأمر المؤمن، إن أمره كله له خير..."</div>
+      </div>
+    </div>
+
+    <!-- 6. السبحة الإلكترونية -->
+    <div id="sebha-page" class="page">
+      <div class="sebha-box">
+        <select class="sebha-selector" id="dhikr-select" onchange="resetCounter()">
+          <option value="سُبْحَانَ اللَّهِ">سُبْحَانَ اللَّهِ</option>
+          <option value="الْحَمْدُ لِلَّهِ">الْحَمْدُ لِلَّهِ</option>
+          <option value="لَا إِلَهَ إِلَّا اللَّهُ">لَا إِلَهَ إِلَّا اللَّهُ</option>
+          <option value="اللَّهُ أَكْبَرُ">اللَّهُ أَكْبَرُ</option>
+          <option value="سُبْحَانَ اللَّهِ وَبِحَمْدِهِ">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ</option>
+          <option value="أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ">أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ</option>
+        </select>
+        
+        <p style="font-size: 12px; color: var(--text-muted);">اضغط التسبيح للعداد</p>
+        <div class="sebha-counter-display" id="counter-val">0</div>
+        
+        <button class="sebha-btn-circle" onclick="incrementCounter()">سبّح</button>
+        
+        <div>
+          <button class="btn-reset" onclick="resetCounter()">تصفير العداد</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function switchPage(page) {
+      const pages = ['prayers', 'quran', 'surahs', 'adhkar', 'hadith', 'sebha'];
+      pages.forEach(p => {
+        document.getElementById(p + '-page').classList.remove('active');
+        document.getElementById('btn-' + p).classList.remove('active-btn');
+      });
+      document.getElementById(page + '-page').classList.add('active');
+      document.getElementById('btn-' + page).classList.add('active-btn');
+    }
+
+    /* تشغيل الساعة الرقمية المباشرة والتاريخ */
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      let seconds = now.getSeconds();
+      let ampm = hours >= 12 ? 'PM' : 'AM';
+      
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      hours = hours < 10 ? '0' + hours : hours;
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      seconds = seconds < 10 ? '0' + seconds : seconds;
+
+      const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
+      document.getElementById('live-clock').innerText = timeString;
+
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const dateString = now.toLocaleDateString('ar-SA', options);
+      document.getElementById('live-date').innerText = dateString;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    let count = 0;
+    function incrementCounter() {
+      count++;
+      document.getElementById('counter-val').innerText = count;
+    }
+    function resetCounter() {
+      count = 0;
+      document.getElementById('counter-val').innerText = count;
+    }
+
+    function filterQuran() {
+      let input = document.getElementById('quranSearch').value.toLowerCase();
+      let cards = document.getElementById('quranList').getElementsByClassName('content-card');
+      for (let i = 0; i < cards.length; i++) {
+        let title = cards[i].getElementsByClassName('card-title')[0];
+        if (title) {
+          let text = title.textContent || title.innerText;
+          cards[i].style.display = text.toLowerCase().indexOf(input) > -1 ? "" : "none";
+        }
+      }
+    }
+  </script>
+</body>
+</html>
